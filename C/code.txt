@@ -1,0 +1,699 @@
+VARIABLE_TAG#    //变量
+    var_u1;   //三个码
+    var_u2;   //三个码
+    var_u3;   //三个码
+    var_u4;
+    var_u4d;
+    var_tmp1;  //
+    var_tmp2;  //
+    var_tmp3;  //
+    var_tmp4;  //
+    var_tmp5;  //
+    var_tmp6;  //
+    var_tmp7;  //
+    var_tmp8;  //
+    
+CODE_TAG# //主程序
+MAIN:                       set     0x0;  
+                            write   0x12;
+                            set     0x70003;  
+                            write   0x12;
+                            set     0x64;   //T1 100us
+                            write   0x24;
+                            set     0x3E8;   //T2 1000us
+                            write   0x25;
+                            set     0xA;   //T3 10us
+                            write   0x26;
+RECV_UART_THREE_DATA:       callon  MOSERR_CHECK;
+                            callon  RECV_UART_DATA;
+                            save    var_u1;         //读到串口第1个码
+                            callon  RECV_UART_DATA;
+                            save    var_u2;         //读到串口第2个码
+                            callon  RECV_UART_DATA;
+                            save    var_u3;         //读到串口第3个码
+                            load    var_u2;
+                            shiftl4;     
+                            shiftl4;     
+                            add     var_u3;
+                            save    var_u4;     //码2、3组合数
+                            write   0x20;
+                            delay   0x20;
+                            read    0x22;
+                            save    var_u4d;    //码2、3按照10进制看的真实数值
+//////////////////判断命令u1是什么
+                            set     0x01;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_01_TAG;   //是不是0x01命令
+                            set     0x02;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_02_TAG;   //是不是0x02命令
+                            set     0x03;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_03_TAG;   //是不是0x03命令
+                            set     0x11;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_11_TAG;   //是不是0x11命令
+                            set     0x22;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_22_TAG;   //是不是0x22命令
+                            set     0x50;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_50_TAG;   //是不是0x50命令
+                            set     0x04;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_04_TAG;   //是不是0x04命令
+                            set     0x99;
+                            save    var_tmp1;
+                            load    var_u1;
+                            xor     var_tmp1;
+                            jumpe   CMD_99_TAG;   //是不是0x99命令
+
+                            jump    UN_CMD_USED;   //以上命令都不是，跳转
+CMD_01_TAG:                 callon  SET_T1_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_02_TAG:                 callon  SET_T2_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_03_TAG:                 callon  SET_T3_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_11_TAG:                 callon  SET_PULSE1_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_22_TAG:                 callon  SET_PULSE2_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_50_TAG:                 callon  SET_ADC_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_04_TAG:                 callon  SET_OPEN_CMD;
+                            jump   RECV_UART_THREE_DATA;
+CMD_99_TAG:                 callon  SET_INPUT_CMD;
+                            jump   RECV_UART_THREE_DATA;
+UN_CMD_USED:                callon  SET_UN_CMD;
+                            jump   RECV_UART_THREE_DATA;
+
+//设置T1参数
+SET_T1_CMD:     load    var_u4d;
+                write   0x24;
+                callon SET_T1T2T3_TIME;
+                callbk;
+
+//设置T2参数
+SET_T2_CMD:     load    var_u4d;
+                write   0x25;
+                callon SET_T1T2T3_TIME;
+                callbk;
+
+//设置T3参数
+SET_T3_CMD:     load    var_u4d;
+                write   0x26;
+                callon SET_T1T2T3_TIME;
+                callbk;
+
+////单脉冲
+SET_PULSE1_CMD: load    var_u4d;
+                write   0x27;  //脉冲寄存器
+                set     0x1;
+                write   0x28;  //脉冲触发
+                delay   0x100;
+                set     0x0;
+                write   0x28;  //脉冲触发
+                set     0x4F;   //O
+                write   0x10;
+                set     0x6E;   //n
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x6C;   //l
+                write   0x10;
+                set     0x73;   //s
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;                
+                set     0x54;   //T
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x73;   //s
+                write   0x10;
+                set     0x74;   //t
+                write   0x10;
+                set     0x2E;   //.
+                write   0x10; 
+                set     0x20;   //空格
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x77;   //w
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x4E;   //N
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;                
+                read    0x27;  //脉冲寄存器
+                callon  UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;                 
+                callon SET_T1T2T3_TIME;
+                callbk;
+
+////2脉冲
+SET_PULSE2_CMD: load    var_u4d;
+                write   0x27;  //脉冲寄存器
+                set     0x2;
+                write   0x28;  //脉冲触发
+                delay   0x100;
+                set     0x0;
+                write   0x28;  //脉冲触发
+                set     0x54;   //T
+                write   0x10;
+                set     0x77;   //w
+                write   0x10;
+                set     0x6F;   //o
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x6C;   //l
+                write   0x10;
+                set     0x73;   //s
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;                
+                set     0x54;   //T
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x73;   //s
+                write   0x10;
+                set     0x74;   //t
+                write   0x10;
+                set     0x2E;   //.
+                write   0x10; 
+                set     0x20;   //空格
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x77;   //w
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x4E;   //N
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;                
+                read    0x27;  //脉冲寄存器
+                callon  UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;                 
+                callon SET_T1T2T3_TIME;
+                callbk;
+
+//读采样
+SET_ADC_CMD:    set     0x56;   //V
+                write   0x10;
+                set     0x43;   //C
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x31;   //1
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                read    0x2D;
+                callon UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;
+                set     0x56;   //V
+                write   0x10;
+                set     0x43;   //C
+                write   0x10;
+                set     0x50;   //P
+                write   0x10;
+                set     0x32;   //2
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                read    0x2D;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                callon UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;
+                set     0x49;   //I
+                write   0x10;
+                set     0x41;   //A
+                write   0x10;
+                set     0x43;   //C
+                write   0x10;
+                set     0x31;   //1
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                read    0x2E;
+                callon UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;
+                set     0x49;   //I
+                write   0x10;
+                set     0x41;   //A
+                write   0x10;
+                set     0x43;   //C
+                write   0x10;
+                set     0x32;   //2
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                read    0x2E;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                callon UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;
+                set     0x49;   //I
+                write   0x10;
+                set     0x41;   //A
+                write   0x10;
+                set     0x43;   //C
+                write   0x10;
+                set     0x33;   //3
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                read    0x2F;
+                callon UART_SEND_DATA_CHAR;
+                set     0x0A;   //换行
+                write   0x10;                
+                callbk;
+
+//常开
+SET_OPEN_CMD:   load    var_u4d;
+                write   0x29;
+                set     0x50;   //P
+                write   0x10; 
+                set     0x77;   //w
+                write   0x10; 
+                set     0x6D;   //m
+                write   0x10; 
+                set     0x20;   //空格
+                write   0x10; 
+                set     0x4F;   //O
+                write   0x10; 
+                set     0x70;   //p
+                write   0x10; 
+                set     0x65;   //e
+                write   0x10; 
+                set     0x6E;   //n
+                write   0x10; 
+                set     0x3A;   //:
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;                
+                read    0x2B;
+                save    var_tmp1;   //save data to tmp1
+                set     0xF;  
+                save    var_tmp2;   //0xF
+                set     0x30;  
+                save    var_tmp3;   //0x30
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;                
+                read    0x2A;
+                save    var_tmp1;   //save data to tmp1
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;                
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr4;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;    
+                load    var_tmp1;
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;            
+                set     0x0A;   //换行
+                write   0x10;                                  
+                callbk;
+
+//请输入
+SET_INPUT_CMD:  set     0x50;   //P
+                write   0x10;
+                set     0x6C;   //l
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x61;   //a
+                write   0x10;
+                set     0x73;   //s
+                write   0x10;
+                set     0x65;   //e
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x49;   //I
+                write   0x10;
+                set     0x6E;   //n
+                write   0x10;
+                set     0x70;   //p
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x74;   //t
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x63;   //c
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x64;   //d
+                write   0x10;
+                set     0x2E;   //.
+                write   0x10; 
+                set     0x0A;   //换行
+                write   0x10;      
+                callbk;
+
+//检查MOS ERR
+MOSERR_CHECK:   read    0x2C;
+                save    var_tmp1;
+                jumpn   MOS_ERR_FLAG; 
+                callbk;
+MOS_ERR_FLAG:   set     0x4D;   //M
+                write   0x10;
+                set     0x4F;   //O
+                write   0x10;
+                set     0x53;   //S
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x45;   //E
+                write   0x10;
+                set     0x52;   //R
+                write   0x10;
+                set     0x52;   //R
+                write   0x10;
+                set     0x3A;   //:
+                write   0x10;
+                set     0x1;  
+                save    var_tmp2;   //0x1
+                set     0x30;  
+                save    var_tmp3;   //0x30
+                load    var_tmp1;
+                shiftr;
+                shiftr;
+                shiftr;
+                shiftr;                                          
+                shiftr;                                          
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr;
+                shiftr;
+                shiftr;                                          
+                shiftr;                                          
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr;
+                shiftr;                                          
+                shiftr;                                          
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;
+                shiftr;                                          
+                shiftr;                                          
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;                                       
+                shiftr;                                          
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                load    var_tmp1;                                        
+                and     var_tmp2;  //and 0xF
+                add     var_tmp3;
+                write   0x10;
+                set     0x0A;   //换行
+                write   0x10;    
+                callbk;
+
+//函数，输出T1、T2、T3的值
+SET_T1T2T3_TIME:    set     0x54;   //T
+                    write   0x10;
+                    set     0x31;   //1
+                    write   0x10;
+                    set     0x3A;   //:
+                    write   0x10;
+                    read    0x24;
+                    callon  UART_SEND_DATA_CHAR;
+                    set     0x75;   //u
+                    write   0x10; 
+                    set     0x73;   //s
+                    write   0x10; 
+                    set     0x3B;   //;
+                    write   0x10; 
+                    set     0x54;   //T
+                    write   0x10;
+                    set     0x32;   //2
+                    write   0x10;
+                    set     0x3A;   //:
+                    write   0x10;
+                    read    0x25;
+                    callon  UART_SEND_DATA_CHAR;
+                    set     0x75;   //u
+                    write   0x10; 
+                    set     0x73;   //s
+                    write   0x10; 
+                    set     0x3B;   //;
+                    write   0x10; 
+                    set     0x54;   //T
+                    write   0x10;
+                    set     0x33;   //3
+                    write   0x10;
+                    set     0x3A;   //:
+                    write   0x10;
+                    read    0x26;
+                    callon  UART_SEND_DATA_CHAR;
+                    set     0x75;   //u
+                    write   0x10; 
+                    set     0x73;   //s
+                    write   0x10; 
+                    set     0x2E;   //.
+                    write   0x10; 
+                    set     0x0A;   //换行
+                    write   0x10;                 
+                    callbk;
+
+//函数，打印我不知道你设置的什么命令
+SET_UN_CMD:     set     0x49;   //I
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x64;   //d
+                write   0x10;
+                set     0x6F;   //o
+                write   0x10;
+                set     0x6E;   //n
+                write   0x10;
+                set     0x60;   //'
+                write   0x10;
+                set     0x74;   //t
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x6B;   //k
+                write   0x10;
+                set     0x6E;   //n
+                write   0x10;
+                set     0x6F;   //o
+                write   0x10;
+                set     0x77;   //w
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x79;   //y
+                write   0x10;
+                set     0x6F;   //o
+                write   0x10;
+                set     0x75;   //u
+                write   0x10;
+                set     0x72;   //r
+                write   0x10;
+                set     0x20;   //空格
+                write   0x10;
+                set     0x63;   //c
+                write   0x10;
+                set     0x6D;   //m
+                write   0x10;
+                set     0x64;   //d
+                write   0x10;
+                set     0x0A;   //换行
+                write   0x10; 
+                callbk;
+
+
+//函数，读一个串口数据，返回到R0
+RECV_UART_DATA: set     0x10;  
+                save    var_tmp1;
+NO_UART_DATA:   read    0x13;       //read status
+                and     var_tmp1;   //bit4
+                jumpn   NO_UART_DATA;
+                read    0x11;       //read to R0
+                callbk;
+
+//函数，把R0一个32位数(实际值)，按照4bit为单位转成char发到串口打印
+UART_SEND_DATA_CHAR:    write   0x21;    //转换成要输出的进制
+                        delay   0x20;
+                        read    0x23;
+                        save    var_tmp1;   //32数据保存一下
+                        set     0xF;  
+                        save    var_tmp2;  //0xF
+                        set     0x30;  
+                        save    var_tmp3;  //0x30
+                        load    var_tmp1;
+                        shiftr4;
+                        shiftr4;
+                        shiftr4;
+                        shiftr4;                                          
+                        and     var_tmp2;  //and 0xF
+                        add     var_tmp3;
+                        write   0x10;
+                        load    var_tmp1;
+                        shiftr4;
+                        shiftr4;
+                        shiftr4;                                          
+                        and     var_tmp2;  //and 0xF
+                        add     var_tmp3;
+                        write   0x10;       
+                        load    var_tmp1;
+                        shiftr4;
+                        shiftr4;
+                        and     var_tmp2;  //and 0xF
+                        add     var_tmp3;
+                        write   0x10;    
+                        load    var_tmp1;
+                        shiftr4;                                          
+                        and     var_tmp2;  //and 0xF
+                        add     var_tmp3;
+                        write   0x10; 
+                        load    var_tmp1;
+                        and     var_tmp2;  //and 0xF
+                        add     var_tmp3;
+                        write   0x10;     
+                        callbk;
+
+

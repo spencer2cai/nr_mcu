@@ -1,0 +1,3908 @@
+1.get source code :
+VARIABLE_TAG#
+var_u1;
+var_u2;
+var_u3;
+var_u4;
+var_u4d;
+var_tmp1;
+var_tmp2;
+var_tmp3;
+var_tmp4;
+var_tmp5;
+var_tmp6;
+var_tmp7;
+var_tmp8;
+CODE_TAG#
+MAIN:
+set
+0x0;
+write
+0x12;
+set
+0x70003;
+write
+0x12;
+set
+0x64;
+100us
+write
+0x24;
+set
+0x3E8;
+1000us
+write
+0x25;
+set
+0xA;
+10us
+write
+0x26;
+RECV_UART_THREE_DATA:
+callon
+MOSERR_CHECK;
+callon
+RECV_UART_DATA;
+save
+var_u1;
+callon
+RECV_UART_DATA;
+save
+var_u2;
+callon
+RECV_UART_DATA;
+save
+var_u3;
+load
+var_u2;
+shiftl4;
+shiftl4;
+add
+var_u3;
+save
+var_u4;
+write
+0x20;
+delay
+0x20;
+read
+0x22;
+save
+var_u4d;
+set
+0x01;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_01_TAG;
+set
+0x02;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_02_TAG;
+set
+0x03;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_03_TAG;
+set
+0x11;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_11_TAG;
+set
+0x22;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_22_TAG;
+set
+0x50;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_50_TAG;
+set
+0x04;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_04_TAG;
+set
+0x99;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_99_TAG;
+jump
+UN_CMD_USED;
+CMD_01_TAG:
+callon
+SET_T1_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_02_TAG:
+callon
+SET_T2_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_03_TAG:
+callon
+SET_T3_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_11_TAG:
+callon
+SET_PULSE1_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_22_TAG:
+callon
+SET_PULSE2_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_50_TAG:
+callon
+SET_ADC_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_04_TAG:
+callon
+SET_OPEN_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_99_TAG:
+callon
+SET_INPUT_CMD;
+jump
+RECV_UART_THREE_DATA;
+UN_CMD_USED:
+callon
+SET_UN_CMD;
+jump
+RECV_UART_THREE_DATA;
+SET_T1_CMD:
+load
+var_u4d;
+write
+0x24;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_T2_CMD:
+load
+var_u4d;
+write
+0x25;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_T3_CMD:
+load
+var_u4d;
+write
+0x26;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_PULSE1_CMD:
+load
+var_u4d;
+write
+0x27;
+set
+0x1;
+write
+0x28;
+delay
+0x100;
+set
+0x0;
+write
+0x28;
+set
+0x4F;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4E;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x27;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_PULSE2_CMD:
+load
+var_u4d;
+write
+0x27;
+set
+0x2;
+write
+0x28;
+delay
+0x100;
+set
+0x0;
+write
+0x28;
+set
+0x54;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4E;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x27;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_ADC_CMD:
+set
+0x56;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2D;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x56;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2D;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2E;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2E;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x33;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2F;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_OPEN_CMD:
+load
+var_u4d;
+write
+0x29;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4F;
+write
+0x10;
+set
+0x70;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+read
+0x2B;
+save
+var_tmp1;
+data
+to
+tmp1
+set
+0xF;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+read
+0x2A;
+save
+var_tmp1;
+data
+to
+tmp1
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_INPUT_CMD:
+set
+0x50;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x61;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x70;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x63;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+ERR
+MOSERR_CHECK:
+read
+0x2C;
+save
+var_tmp1;
+jumpn
+MOS_ERR_FLAG;
+callbk;
+MOS_ERR_FLAG:
+set
+0x4D;
+write
+0x10;
+set
+0x4F;
+write
+0x10;
+set
+0x53;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x45;
+write
+0x10;
+set
+0x52;
+write
+0x10;
+set
+0x52;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+set
+0x1;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_T1T2T3_TIME:
+set
+0x54;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x24;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x3B;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x25;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x3B;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x33;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x26;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_UN_CMD:
+set
+0x49;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x60;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x6B;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x79;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x72;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x63;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+RECV_UART_DATA:
+set
+0x10;
+save
+var_tmp1;
+NO_UART_DATA:
+read
+0x13;
+status
+and
+var_tmp1;
+jumpn
+NO_UART_DATA;
+read
+0x11;
+to
+R0
+callbk;
+UART_SEND_DATA_CHAR:
+write
+0x21;
+delay
+0x20;
+read
+0x23;
+save
+var_tmp1;
+set
+0xF;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+callbk;
+-----------------------------------
+2.variable check : 
+var_u1
+var_u2
+var_u3
+var_u4
+var_u4d
+var_tmp1
+var_tmp2
+var_tmp3
+var_tmp4
+var_tmp5
+var_tmp6
+var_tmp7
+var_tmp8
+-----------------------------------
+3.code list check : 
+MAIN:
+set
+0x0;
+write
+0x12;
+set
+0x70003;
+write
+0x12;
+set
+0x64;
+100us
+write
+0x24;
+set
+0x3E8;
+1000us
+write
+0x25;
+set
+0xA;
+10us
+write
+0x26;
+RECV_UART_THREE_DATA:
+callon
+MOSERR_CHECK;
+callon
+RECV_UART_DATA;
+save
+var_u1;
+callon
+RECV_UART_DATA;
+save
+var_u2;
+callon
+RECV_UART_DATA;
+save
+var_u3;
+load
+var_u2;
+shiftl4;
+shiftl4;
+add
+var_u3;
+save
+var_u4;
+write
+0x20;
+delay
+0x20;
+read
+0x22;
+save
+var_u4d;
+set
+0x01;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_01_TAG;
+set
+0x02;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_02_TAG;
+set
+0x03;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_03_TAG;
+set
+0x11;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_11_TAG;
+set
+0x22;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_22_TAG;
+set
+0x50;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_50_TAG;
+set
+0x04;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_04_TAG;
+set
+0x99;
+save
+var_tmp1;
+load
+var_u1;
+xor
+var_tmp1;
+jumpe
+CMD_99_TAG;
+jump
+UN_CMD_USED;
+CMD_01_TAG:
+callon
+SET_T1_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_02_TAG:
+callon
+SET_T2_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_03_TAG:
+callon
+SET_T3_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_11_TAG:
+callon
+SET_PULSE1_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_22_TAG:
+callon
+SET_PULSE2_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_50_TAG:
+callon
+SET_ADC_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_04_TAG:
+callon
+SET_OPEN_CMD;
+jump
+RECV_UART_THREE_DATA;
+CMD_99_TAG:
+callon
+SET_INPUT_CMD;
+jump
+RECV_UART_THREE_DATA;
+UN_CMD_USED:
+callon
+SET_UN_CMD;
+jump
+RECV_UART_THREE_DATA;
+SET_T1_CMD:
+load
+var_u4d;
+write
+0x24;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_T2_CMD:
+load
+var_u4d;
+write
+0x25;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_T3_CMD:
+load
+var_u4d;
+write
+0x26;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_PULSE1_CMD:
+load
+var_u4d;
+write
+0x27;
+set
+0x1;
+write
+0x28;
+delay
+0x100;
+set
+0x0;
+write
+0x28;
+set
+0x4F;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4E;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x27;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_PULSE2_CMD:
+load
+var_u4d;
+write
+0x27;
+set
+0x2;
+write
+0x28;
+delay
+0x100;
+set
+0x0;
+write
+0x28;
+set
+0x54;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4E;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x27;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callon
+SET_T1T2T3_TIME;
+callbk;
+SET_ADC_CMD:
+set
+0x56;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2D;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x56;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x50;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2D;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2E;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2E;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x41;
+write
+0x10;
+set
+0x43;
+write
+0x10;
+set
+0x33;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x2F;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_OPEN_CMD:
+load
+var_u4d;
+write
+0x29;
+set
+0x50;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x4F;
+write
+0x10;
+set
+0x70;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+read
+0x2B;
+save
+var_tmp1;
+data
+to
+tmp1
+set
+0xF;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+read
+0x2A;
+save
+var_tmp1;
+data
+to
+tmp1
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_INPUT_CMD:
+set
+0x50;
+write
+0x10;
+set
+0x6C;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x61;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x65;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x49;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x70;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x63;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+ERR
+MOSERR_CHECK:
+read
+0x2C;
+save
+var_tmp1;
+jumpn
+MOS_ERR_FLAG;
+callbk;
+MOS_ERR_FLAG:
+set
+0x4D;
+write
+0x10;
+set
+0x4F;
+write
+0x10;
+set
+0x53;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x45;
+write
+0x10;
+set
+0x52;
+write
+0x10;
+set
+0x52;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+set
+0x1;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_T1T2T3_TIME:
+set
+0x54;
+write
+0x10;
+set
+0x31;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x24;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x3B;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x32;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x25;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x3B;
+write
+0x10;
+set
+0x54;
+write
+0x10;
+set
+0x33;
+write
+0x10;
+set
+0x3A;
+write
+0x10;
+read
+0x26;
+callon
+UART_SEND_DATA_CHAR;
+set
+0x75;
+write
+0x10;
+set
+0x73;
+write
+0x10;
+set
+0x2E;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+SET_UN_CMD:
+set
+0x49;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x60;
+write
+0x10;
+set
+0x74;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x6B;
+write
+0x10;
+set
+0x6E;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x77;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x79;
+write
+0x10;
+set
+0x6F;
+write
+0x10;
+set
+0x75;
+write
+0x10;
+set
+0x72;
+write
+0x10;
+set
+0x20;
+write
+0x10;
+set
+0x63;
+write
+0x10;
+set
+0x6D;
+write
+0x10;
+set
+0x64;
+write
+0x10;
+set
+0x0A;
+write
+0x10;
+callbk;
+RECV_UART_DATA:
+set
+0x10;
+save
+var_tmp1;
+NO_UART_DATA:
+read
+0x13;
+status
+and
+var_tmp1;
+jumpn
+NO_UART_DATA;
+read
+0x11;
+to
+R0
+callbk;
+UART_SEND_DATA_CHAR:
+write
+0x21;
+delay
+0x20;
+read
+0x23;
+save
+var_tmp1;
+set
+0xF;
+save
+var_tmp2;
+set
+0x30;
+save
+var_tmp3;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+shiftr4;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+load
+var_tmp1;
+and
+var_tmp2;
+0xF
+add
+var_tmp3;
+write
+0x10;
+callbk;
+-----------------------------------
+4.rebase the code to 3XN : 
+MAIN set 0x0
+NULL write 0x12
+NULL set 0x70003
+NULL write 0x12
+NULL set 0x64
+NULL write 0x24
+NULL set 0x3E8
+NULL write 0x25
+NULL set 0xA
+NULL write 0x26
+RECV_UART_THREE_DATA callon MOSERR_CHECK
+NULL callon RECV_UART_DATA
+NULL save var_u1
+NULL callon RECV_UART_DATA
+NULL save var_u2
+NULL callon RECV_UART_DATA
+NULL save var_u3
+NULL load var_u2
+NULL shiftl4 0x0
+NULL shiftl4 0x0
+NULL add var_u3
+NULL save var_u4
+NULL write 0x20
+NULL delay 0x20
+NULL read 0x22
+NULL save var_u4d
+NULL set 0x01
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_01_TAG
+NULL set 0x02
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_02_TAG
+NULL set 0x03
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_03_TAG
+NULL set 0x11
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_11_TAG
+NULL set 0x22
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_22_TAG
+NULL set 0x50
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_50_TAG
+NULL set 0x04
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_04_TAG
+NULL set 0x99
+NULL save var_tmp1
+NULL load var_u1
+NULL xor var_tmp1
+NULL jumpe CMD_99_TAG
+NULL jump UN_CMD_USED
+CMD_01_TAG callon SET_T1_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_02_TAG callon SET_T2_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_03_TAG callon SET_T3_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_11_TAG callon SET_PULSE1_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_22_TAG callon SET_PULSE2_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_50_TAG callon SET_ADC_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_04_TAG callon SET_OPEN_CMD
+NULL jump RECV_UART_THREE_DATA
+CMD_99_TAG callon SET_INPUT_CMD
+NULL jump RECV_UART_THREE_DATA
+UN_CMD_USED callon SET_UN_CMD
+NULL jump RECV_UART_THREE_DATA
+SET_T1_CMD load var_u4d
+NULL write 0x24
+NULL callon SET_T1T2T3_TIME
+NULL callbk 0x0
+SET_T2_CMD load var_u4d
+NULL write 0x25
+NULL callon SET_T1T2T3_TIME
+NULL callbk 0x0
+SET_T3_CMD load var_u4d
+NULL write 0x26
+NULL callon SET_T1T2T3_TIME
+NULL callbk 0x0
+SET_PULSE1_CMD load var_u4d
+NULL write 0x27
+NULL set 0x1
+NULL write 0x28
+NULL delay 0x100
+NULL set 0x0
+NULL write 0x28
+NULL set 0x4F
+NULL write 0x10
+NULL set 0x6E
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x6C
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x54
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x74
+NULL write 0x10
+NULL set 0x2E
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x77
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x4E
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x27
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL callon SET_T1T2T3_TIME
+NULL callbk 0x0
+SET_PULSE2_CMD load var_u4d
+NULL write 0x27
+NULL set 0x2
+NULL write 0x28
+NULL delay 0x100
+NULL set 0x0
+NULL write 0x28
+NULL set 0x54
+NULL write 0x10
+NULL set 0x77
+NULL write 0x10
+NULL set 0x6F
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x6C
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x54
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x74
+NULL write 0x10
+NULL set 0x2E
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x77
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x4E
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x27
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL callon SET_T1T2T3_TIME
+NULL callbk 0x0
+SET_ADC_CMD set 0x56
+NULL write 0x10
+NULL set 0x43
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x31
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x2D
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL set 0x56
+NULL write 0x10
+NULL set 0x43
+NULL write 0x10
+NULL set 0x50
+NULL write 0x10
+NULL set 0x32
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x2D
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL set 0x49
+NULL write 0x10
+NULL set 0x41
+NULL write 0x10
+NULL set 0x43
+NULL write 0x10
+NULL set 0x31
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x2E
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL set 0x49
+NULL write 0x10
+NULL set 0x41
+NULL write 0x10
+NULL set 0x43
+NULL write 0x10
+NULL set 0x32
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x2E
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL set 0x49
+NULL write 0x10
+NULL set 0x41
+NULL write 0x10
+NULL set 0x43
+NULL write 0x10
+NULL set 0x33
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x2F
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+SET_OPEN_CMD load var_u4d
+NULL write 0x29
+NULL set 0x50
+NULL write 0x10
+NULL set 0x77
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x4F
+NULL write 0x10
+NULL set 0x70
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x6E
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL read 0x2B
+NULL save var_tmp1
+NULL set 0xF
+NULL save var_tmp2
+NULL set 0x30
+NULL save var_tmp3
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL read 0x2A
+NULL save var_tmp1
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+SET_INPUT_CMD set 0x50
+NULL write 0x10
+NULL set 0x6C
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x61
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x65
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x49
+NULL write 0x10
+NULL set 0x6E
+NULL write 0x10
+NULL set 0x70
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x74
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x63
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x64
+NULL write 0x10
+NULL set 0x2E
+NULL write 0x10
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+MOSERR_CHECK read 0x2C
+NULL save var_tmp1
+NULL jumpn MOS_ERR_FLAG
+NULL callbk 0x0
+MOS_ERR_FLAG set 0x4D
+NULL write 0x10
+NULL set 0x4F
+NULL write 0x10
+NULL set 0x53
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x45
+NULL write 0x10
+NULL set 0x52
+NULL write 0x10
+NULL set 0x52
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL set 0x1
+NULL save var_tmp2
+NULL set 0x30
+NULL save var_tmp3
+NULL load var_tmp1
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr 0x0
+NULL shiftr 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+SET_T1T2T3_TIME set 0x54
+NULL write 0x10
+NULL set 0x31
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x24
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x75
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x3B
+NULL write 0x10
+NULL set 0x54
+NULL write 0x10
+NULL set 0x32
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x25
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x75
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x3B
+NULL write 0x10
+NULL set 0x54
+NULL write 0x10
+NULL set 0x33
+NULL write 0x10
+NULL set 0x3A
+NULL write 0x10
+NULL read 0x26
+NULL callon UART_SEND_DATA_CHAR
+NULL set 0x75
+NULL write 0x10
+NULL set 0x73
+NULL write 0x10
+NULL set 0x2E
+NULL write 0x10
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+SET_UN_CMD set 0x49
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x64
+NULL write 0x10
+NULL set 0x6F
+NULL write 0x10
+NULL set 0x6E
+NULL write 0x10
+NULL set 0x60
+NULL write 0x10
+NULL set 0x74
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x6B
+NULL write 0x10
+NULL set 0x6E
+NULL write 0x10
+NULL set 0x6F
+NULL write 0x10
+NULL set 0x77
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x79
+NULL write 0x10
+NULL set 0x6F
+NULL write 0x10
+NULL set 0x75
+NULL write 0x10
+NULL set 0x72
+NULL write 0x10
+NULL set 0x20
+NULL write 0x10
+NULL set 0x63
+NULL write 0x10
+NULL set 0x6D
+NULL write 0x10
+NULL set 0x64
+NULL write 0x10
+NULL set 0x0A
+NULL write 0x10
+NULL callbk 0x0
+RECV_UART_DATA set 0x10
+NULL save var_tmp1
+NO_UART_DATA read 0x13
+NULL and var_tmp1
+NULL jumpn NO_UART_DATA
+NULL read 0x11
+NULL callbk 0x0
+UART_SEND_DATA_CHAR write 0x21
+NULL delay 0x20
+NULL read 0x23
+NULL save var_tmp1
+NULL set 0xF
+NULL save var_tmp2
+NULL set 0x30
+NULL save var_tmp3
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL shiftr4 0x0
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL load var_tmp1
+NULL and var_tmp2
+NULL add var_tmp3
+NULL write 0x10
+NULL callbk 0x0
+-----------------------------------
+5.start to compile......!!!!!!
+23 00000000 
+02 00000012 
+23 00070003 
+02 00000012 
+23 00000064 
+02 00000024 
+23 000003e8 
+02 00000025 
+23 0000000a 
+02 00000026 
+51 000001c2 
+51 0000025e 
+22 00000000 
+51 0000025e 
+22 00000001 
+51 0000025e 
+22 00000002 
+21 00000001 
+37 00000000 
+37 00000000 
+31 00000002 
+22 00000003 
+02 00000020 
+41 00000020 
+01 00000022 
+22 00000004 
+23 00000001 
+22 00000005 
+21 00000000 
+34 00000005 
+12 00000043 
+23 00000002 
+22 00000005 
+21 00000000 
+34 00000005 
+12 00000045 
+23 00000003 
+22 00000005 
+21 00000000 
+34 00000005 
+12 00000047 
+23 00000011 
+22 00000005 
+21 00000000 
+34 00000005 
+12 00000049 
+23 00000022 
+22 00000005 
+21 00000000 
+34 00000005 
+12 0000004b 
+23 00000050 
+22 00000005 
+21 00000000 
+34 00000005 
+12 0000004d 
+23 00000004 
+22 00000005 
+21 00000000 
+34 00000005 
+12 0000004f 
+23 00000099 
+22 00000005 
+21 00000000 
+34 00000005 
+12 00000051 
+11 00000053 
+51 00000055 
+11 0000000a 
+51 00000059 
+11 0000000a 
+51 0000005d 
+11 0000000a 
+51 00000061 
+11 0000000a 
+51 0000009c 
+11 0000000a 
+51 000000d7 
+11 0000000a 
+51 00000126 
+11 0000000a 
+51 0000019d 
+11 0000000a 
+51 00000231 
+11 0000000a 
+21 00000004 
+02 00000024 
+51 00000204 
+52 00000000 
+21 00000004 
+02 00000025 
+51 00000204 
+52 00000000 
+21 00000004 
+02 00000026 
+51 00000204 
+52 00000000 
+21 00000004 
+02 00000027 
+23 00000001 
+02 00000028 
+41 00000100 
+23 00000000 
+02 00000028 
+23 0000004f 
+02 00000010 
+23 0000006e 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000075 
+02 00000010 
+23 0000006c 
+02 00000010 
+23 00000073 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000054 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000073 
+02 00000010 
+23 00000074 
+02 00000010 
+23 0000002e 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000077 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 00000020 
+02 00000010 
+23 0000004e 
+02 00000010 
+23 00000075 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 00000027 
+51 00000265 
+23 0000000a 
+02 00000010 
+51 00000204 
+52 00000000 
+21 00000004 
+02 00000027 
+23 00000002 
+02 00000028 
+41 00000100 
+23 00000000 
+02 00000028 
+23 00000054 
+02 00000010 
+23 00000077 
+02 00000010 
+23 0000006f 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000075 
+02 00000010 
+23 0000006c 
+02 00000010 
+23 00000073 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000054 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000073 
+02 00000010 
+23 00000074 
+02 00000010 
+23 0000002e 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000077 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 00000020 
+02 00000010 
+23 0000004e 
+02 00000010 
+23 00000075 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 00000027 
+51 00000265 
+23 0000000a 
+02 00000010 
+51 00000204 
+52 00000000 
+23 00000056 
+02 00000010 
+23 00000043 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000031 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 0000002d 
+51 00000265 
+23 0000000a 
+02 00000010 
+23 00000056 
+02 00000010 
+23 00000043 
+02 00000010 
+23 00000050 
+02 00000010 
+23 00000032 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 0000002d 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+51 00000265 
+23 0000000a 
+02 00000010 
+23 00000049 
+02 00000010 
+23 00000041 
+02 00000010 
+23 00000043 
+02 00000010 
+23 00000031 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 0000002e 
+51 00000265 
+23 0000000a 
+02 00000010 
+23 00000049 
+02 00000010 
+23 00000041 
+02 00000010 
+23 00000043 
+02 00000010 
+23 00000032 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 0000002e 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+51 00000265 
+23 0000000a 
+02 00000010 
+23 00000049 
+02 00000010 
+23 00000041 
+02 00000010 
+23 00000043 
+02 00000010 
+23 00000033 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 0000002f 
+51 00000265 
+23 0000000a 
+02 00000010 
+52 00000000 
+21 00000004 
+02 00000029 
+23 00000050 
+02 00000010 
+23 00000077 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 00000020 
+02 00000010 
+23 0000004f 
+02 00000010 
+23 00000070 
+02 00000010 
+23 00000065 
+02 00000010 
+23 0000006e 
+02 00000010 
+23 0000003a 
+02 00000010 
+23 00000020 
+02 00000010 
+01 0000002b 
+22 00000005 
+23 0000000f 
+22 00000006 
+23 00000030 
+22 00000007 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+32 00000006 
+31 00000007 
+02 00000010 
+23 00000020 
+02 00000010 
+01 0000002a 
+22 00000005 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+23 00000020 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+32 00000006 
+31 00000007 
+02 00000010 
+23 0000000a 
+02 00000010 
+52 00000000 
+23 00000050 
+02 00000010 
+23 0000006c 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000061 
+02 00000010 
+23 00000073 
+02 00000010 
+23 00000065 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000049 
+02 00000010 
+23 0000006e 
+02 00000010 
+23 00000070 
+02 00000010 
+23 00000075 
+02 00000010 
+23 00000074 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000063 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 00000064 
+02 00000010 
+23 0000002e 
+02 00000010 
+23 0000000a 
+02 00000010 
+52 00000000 
+01 0000002c 
+22 00000005 
+13 000001c6 
+52 00000000 
+23 0000004d 
+02 00000010 
+23 0000004f 
+02 00000010 
+23 00000053 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000045 
+02 00000010 
+23 00000052 
+02 00000010 
+23 00000052 
+02 00000010 
+23 0000003a 
+02 00000010 
+23 00000001 
+22 00000006 
+23 00000030 
+22 00000007 
+21 00000005 
+36 00000000 
+36 00000000 
+36 00000000 
+36 00000000 
+36 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+36 00000000 
+36 00000000 
+36 00000000 
+36 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+36 00000000 
+36 00000000 
+36 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+36 00000000 
+36 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+36 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+32 00000006 
+31 00000007 
+02 00000010 
+23 0000000a 
+02 00000010 
+52 00000000 
+23 00000054 
+02 00000010 
+23 00000031 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 00000024 
+51 00000265 
+23 00000075 
+02 00000010 
+23 00000073 
+02 00000010 
+23 0000003b 
+02 00000010 
+23 00000054 
+02 00000010 
+23 00000032 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 00000025 
+51 00000265 
+23 00000075 
+02 00000010 
+23 00000073 
+02 00000010 
+23 0000003b 
+02 00000010 
+23 00000054 
+02 00000010 
+23 00000033 
+02 00000010 
+23 0000003a 
+02 00000010 
+01 00000026 
+51 00000265 
+23 00000075 
+02 00000010 
+23 00000073 
+02 00000010 
+23 0000002e 
+02 00000010 
+23 0000000a 
+02 00000010 
+52 00000000 
+23 00000049 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000064 
+02 00000010 
+23 0000006f 
+02 00000010 
+23 0000006e 
+02 00000010 
+23 00000060 
+02 00000010 
+23 00000074 
+02 00000010 
+23 00000020 
+02 00000010 
+23 0000006b 
+02 00000010 
+23 0000006e 
+02 00000010 
+23 0000006f 
+02 00000010 
+23 00000077 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000079 
+02 00000010 
+23 0000006f 
+02 00000010 
+23 00000075 
+02 00000010 
+23 00000072 
+02 00000010 
+23 00000020 
+02 00000010 
+23 00000063 
+02 00000010 
+23 0000006d 
+02 00000010 
+23 00000064 
+02 00000010 
+23 0000000a 
+02 00000010 
+52 00000000 
+23 00000010 
+22 00000005 
+01 00000013 
+32 00000005 
+13 00000260 
+01 00000011 
+52 00000000 
+02 00000021 
+41 00000020 
+01 00000023 
+22 00000005 
+23 0000000f 
+22 00000006 
+23 00000030 
+22 00000007 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+38 00000000 
+32 00000006 
+31 00000007 
+02 00000010 
+21 00000005 
+32 00000006 
+31 00000007 
+02 00000010 
+52 00000000 
+-----------------------------------
